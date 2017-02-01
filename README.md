@@ -4,7 +4,7 @@
 ![Color, SVG Fill, Background](assets/treedbox-random-color.png)
 
 ## Online Test
-[https://github.com/treedbox/treedbox-random-color](https://github.com/treedbox/treedbox-random-color 'Treedbox Random Color')
+[https://treedbox.github.io/treedbox-random-color](https://treedbox.github.io/treedbox-random-color 'Treedbox Random Color')
 
 ## How to use
 **1** - Include any or all css color files in your html head
