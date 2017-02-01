@@ -1,0 +1,50 @@
+*,
+*:before,
+*:after{
+  box-sizing:border-box;
+}
+html,body{
+	margin:0;
+	padding:0;
+	height:100%;
+}
+h1, h2, h3, h4, h5{
+	margin:0;
+	color:#fff;
+  font-weight: normal;
+}
+body{
+	background-color:#263238;
+	text-align:center;
+  overflow: hidden;
+}
+section{
+  margin-top: 10px;
+}
+svg{
+  fill-rule:evenodd;
+}
+svg rect{
+  fill: transparent;
+}
+.box{
+  width: 200px;
+  height: 100px;
+  display: inline-block;
+  margin-bottom: 5px;
+  cursor: pointer;
+  transition: .2s all;
+  background-color: #37474f;
+}
+.box:hover,
+.box:focus{
+  transform: scale(1.3);
+}
+.boxcolor{
+}
+.boxbg{
+}
+.boxfill{
+  height: 200px;
+  padding: 10px;
+}
