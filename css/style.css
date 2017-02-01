@@ -18,6 +18,10 @@ body{
 	text-align:center;
   overflow: hidden;
 }
+a{
+  text-decoration: none;
+  color: #fd0;
+}
 section{
   margin-top: 10px;
 }
