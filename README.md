@@ -17,26 +17,38 @@
   <link rel="stylesheet" href="css/colorsbg.css">
   <!-- Random Fill Color -->
   <link rel="stylesheet" href="css/colorsfill.css">
+  <!-- Random Stroke Color -->
+  <link rel="stylesheet" href="css/colorsstroke.css">
 </head>
 ```
 **2** - Include style class in the element that you want to be affected:
 
-`randomcolorfill` to affect SVG (using `colorsfill.css`):
+`randomcolorfill` to affect SVG Fill (using `colorsfill.css`):
 ```
-<svg class="box boxfill" viewBox="0 0 12065 12065">
+<svg viewBox="0 0 12065 12065">
   <rect class="randomcolorfill" width="12065" height="12065"/>
   <path class="randomcolorfill" d="M8431..."/>
   <path class="randomcolorfill" d="M8868..."/>
 </svg>
 ```
-`randomcolor` to affect color/text color/font color (using `colors.css`):
+
+`randomcolorstroke` to affect SVG Stroke (using `colorsstroke.css`):
+```
+<svg viewBox="0 0 481 481">
+  <path class="randomcolorstroke" d="M28 260l27..."/>
+</svg>
+```
+
+`randomcolor` to affect color text/font (using `colors.css`):
 ```
 <div class="box boxcolor randomcolor">randomcolor</div>
 ```
+
 `randomcolorbg` to affect background Color  (using `colorsbg.css`):
 ```
 <div class="box boxbg randomcolorbg">randomcolorbg</div>
 ```
+
 **3** - Include `treedbox-random-color.js` before your `script.js`:
 ```
 </body>
@@ -75,8 +87,10 @@ treedboxRandomColor();
 
 ## Tested
 Google Chrome **55**
+Google Chrome **56**
 
 Firefox **50.1.0**
+Firefox **51.0.1**
 
 ## Meta
 Front-End Developer: [Jonimar Marques Policarpo](http://linkedin.com/in/treedbox 'LinkEdin')
