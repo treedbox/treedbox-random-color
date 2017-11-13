@@ -1,29 +1,41 @@
-# Treedbox Random Color
-> Random color, Random Background Color, Random SVG Fill Color.
+# Treedbox Random Color 2.0.0
+> Random color, Random Background Color, Random SVG Fill Color, Random SVG Stroke Color.
 
-![Color, SVG Fill, Background](assets/treedbox-random-color.png)
+By: [Jonimar Marques Policarpo](https://www.linkedin.com/in/treedbox/ 'LinkEdin') at [Treedbox](http://treedbox.com)
+
+![Color, SVG Fill, SVG Stroke, Background](assets/treedbox-random-color.png)
 
 ## Online Test
 [https://treedbox.github.io/treedbox-random-color](https://treedbox.github.io/treedbox-random-color 'Treedbox Random Color')
 
-## How to use
-**1** - Include any or all css color files in your html head
-```
-<head>
-  ...
-  <!-- Random Color -->
-  <link rel="stylesheet" href="css/colors.css">
-  <!-- Random Background Color -->
-  <link rel="stylesheet" href="css/colorsbg.css">
-  <!-- Random Fill Color -->
-  <link rel="stylesheet" href="css/colorsfill.css">
-  <!-- Random Stroke Color -->
-  <link rel="stylesheet" href="css/colorsstroke.css">
-</head>
-```
-**2** - Include style class in the element that you want to be affected:
 
-`randomcolorfill` to affect SVG Fill (using `colorsfill.css`):
+## What's News?
+The [Version 1.0.0](https://github.com/treedbox/treedbox-random-color/versions/1.0.0) extract the colors from .CSS files. This version (2.0.0) does not depend of any css file. It applyes directly from palettes of color like this:
+```
+const material = [
+  '#009688','#00BCD4','#03A9F4','#2196F3','#3F51B5',
+  '#4CAF50','#607D8B','#673AB7','#795548','#8BC34A',
+  '#9C27B0','#9E9E9E','#CDDC39','#E91E63','#F44336',
+  '#FF5722','#FF9800','#FFC107','#FFEB3B'
+];
+```
+Now the random color change is even more fast (compared with the first version).
+
+### Custom Pallete
+Now you can create your own palette and easily customize your colors:
+```
+//custom palette
+const vimeoInteresting = [
+  '#667daf','#fd585f','#ff8a3d','#a61e2a','#4dbaff',
+  '#fbca54','#abd450','#66cc9a'
+];
+//using the custom palette
+treedboxRandomColor(randomcolorfill,['click'],vimeoInteresting);
+```
+
+## How to use
+1. Include style class in the element that you want to be affected:
+`randomcolorfill` to affect SVG Fill:
 ```
 <svg viewBox="0 0 12065 12065">
   <rect class="randomcolorfill" width="12065" height="12065"/>
@@ -32,24 +44,24 @@
 </svg>
 ```
 
-`randomcolorstroke` to affect SVG Stroke (using `colorsstroke.css`):
+`randomcolorstroke` to affect SVG Stroke:
 ```
 <svg viewBox="0 0 481 481">
   <path class="randomcolorstroke" d="M28 260l27..."/>
 </svg>
 ```
 
-`randomcolor` to affect color text/font (using `colors.css`):
+`randomcolor` to affect color text/font:
 ```
 <div class="box boxcolor randomcolor">randomcolor</div>
 ```
 
-`randomcolorbg` to affect background Color  (using `colorsbg.css`):
+`randomcolorbg` to affect background Color:
 ```
 <div class="box boxbg randomcolorbg">randomcolorbg</div>
 ```
 
-**3** - Include `treedbox-random-color.js` before your `script.js`:
+2. Include `treedbox-random-color.js` before your `script.js`:
 ```
 </body>
 <!-- Treedbox Random Color -->
@@ -58,50 +70,69 @@
 <script src="js/script.js"></script>
 </html>
 ```
-**4** - On `script.js` call the function `treedboxRandomColor()`:
+3. On `script.js` call the function `treedboxRandomColor()` passign the **element's group** and the **event** to listen:
 ```
-...
-//call Treedbox Random Color
-treedboxRandomColor();
+treedboxRandomColor(randomcolorfill,['mouseover']);
 ```
-## How it Works
-**1** - When you call `treedboxRandomColor()`, it get all tags `links` from your HTML, verify if the `stylesheet` links refer to a treedbox Random Color file (`colors.css`, `colorsbg.css`, `colorsfill`);
 
-**2** - Start to extract classes of each valid/founded color CSS file;
+### Elemet's group
+An array with all the elements with the same classes:
+* randomcolorfill
+* randomcolorstroke
+* randomcolor
+* randomcolorbg
 
-**3** - Add event listener to each tagged HTML element:
-
-`focusin`, `click`, `blur`: Apply a Random color;
-
-`mouseleave`, `focusout`, `blur`: After 5 seconds remove applied color.
-
-*You can disable any listener that you want, for example, if you disable:
-`mouseleave`, `focusout` and `blur`, color will not be removed :)*
+### Event
+use any event that you want:
 ```
-//add mouseleave/not hover listener on each element
-// el.addEventListener('mouseleave', removeRandomColor);
-//add focusout/not focus listener on each element
-// el.addEventListener('focusout', removeRandomColor);
-// el.addEventListener('blur', removeRandomColor);
+click,mouseover,mouseout,mousemove
+touchstart,touchend,touchcancel,touchmove
+wheel,focus,focusout,blur
+```
+**WARNING**: mousemove will result in a bunch of blinks
+
+### Multiple Events
+You can add multiple event listeners for elements group:
+```
+treedboxRandomColor(randomcolorstroke,['mouseover','mouseout','touchstart']);
+```
+### Multiple Groups
+You can add multiple elements group for a single event:
+```
+treedboxRandomColor([...randomcolorfill,...randomcolorstroke],['mouseover']);
+```
+### Multiple Groups and Multiple Events
+You can add multiple elements group for multiple event, all together:
+```
+treedboxRandomColor([...randomcolorfill,...randomcolorstroke,...randomcolor,...randomcolorbg],['wheel','click','focus']);
 ```
 
 ## Tested
-Google Chrome **55**
-Google Chrome **56**
+Google Chrome **62**
 
-Firefox **50.1.0**
-Firefox **51.0.1**
+Firefox **56**
+
+Also work without a server.
 
 ## Meta
-Front-End Developer: [Jonimar Marques Policarpo](http://linkedin.com/in/treedbox 'LinkEdin')
+Author: [Jonimar Marques Policarpo](https://www.linkedin.com/in/treedbox/ 'LinkEdin') [Front-End Web Developer]
 
-Twitter: [@treedbox](http://twitter.com/treedbox)
+LinkEdin:  [Jonimar Marques Policarpo | Treedbox](https://www.linkedin.com/in/treedbox/ 'LinkEdin')
 
-E-mail: [treedbox@gmail.com](mailto:treedbox@gmail.com)
+Twitter:  [@treedbox](http://twitter.com/treedbox)
 
-Site: [treedbox.com](http://treedbox.com)
+E-mail:  [treedbox@gmail.com](mailto:treedbox@gmail.com)
+
+WebSite:  [treedbox.com](http://treedbox.com)
 
 ## License
 [MIT](LICENSE.md) © [TreedBox](https://github.com/treedbox)
 
+### Offical Repository
+Version 2.0.0
+
 [https://github.com/treedbox/treedbox-random-color](https://github.com/treedbox/treedbox-random-color)
+
+Version 1.0.0
+
+[https://github.com/treedbox/treedbox-random-color/versions/1.0.0](https://github.com/treedbox/treedbox-random-color/versions/1.0.0)

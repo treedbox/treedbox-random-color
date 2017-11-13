@@ -1,108 +1,78 @@
-/*! Treedbox Random Color
- https://github.com/treedbox/treedbox-random-color
- */
-function treedboxRandomColor() {
-  //set constants
-  //css file names
-  const colorsCss = ['colors.css', 'colorsbg.css','colorsfill.css','colorsstroke.css'];
+/*! Treedbox Random Color 2.0 https://github.com/treedbox/treedbox-random-color */
+//color palettes
+const materialDark = [
+  '#D32F2F','#C2185B','#7B1FA2','#512DA8','#303F9F',
+  '#1976D2','#0288D1','#0097A7','#00796B','#388E3C',
+  '#689F38','#AFB42B','#FBC02D','#FFA000','#F57C00',
+  '#E64A19','#5D4037','#616161','#455A64'
+];
+const material = [
+  '#009688','#00BCD4','#03A9F4','#2196F3','#3F51B5',
+  '#4CAF50','#607D8B','#673AB7','#795548','#8BC34A',
+  '#9C27B0','#9E9E9E','#CDDC39','#E91E63','#F44336',
+  '#FF5722','#FF9800','#FFC107','#FFEB3B'
+];
+const materialLight = [
+  '#FFCDD2','#F8BBD0','#E1BEE7','#D1C4E9','#C5CAE9',
+  '#BBDEFB','#B3E5FC','#B2EBF2','#B2DFDB','#C8E6C9',
+  '#DCEDC8','#F0F4C3','#FFF9C4','#FFECB3','#FFE0B2',
+  '#FFCCBC','#D7CCC8','#F5F5F5','#CFD8DC'
+];
+//a custom palette,you can make your owm:
+const googleColor = [
+  '#4285F4','#34A853','#FBBC05','#EA4335'
+];
 
-  //get all links tag declared in head
-  const links = document.querySelectorAll('link');
-  //prepare to receive valid url
-  const validLinks = [];
+//merge of some palettes in a single array
+const mergedPaletes = [
+  ...material,...materialDark,...materialLight
+];
+//join all palettes but mantain the array structure
+const palettes = [
+  materialDark,material,materialLight,mergedPaletes,googleColor
+];
 
-  //extract SheetStyles from links
-  links.forEach(e =>{
-    if (e.rel == 'stylesheet') {
-    colorsCss.map(el =>{
-      if (e.href.includes(el)) {
-      validLinks.push(e.href);
-    }
+//get all elements with specific classes
+//to change text color:
+let randomcolor = document.querySelectorAll('.randomcolor');
+//to change background color:
+let randomcolorbg = document.querySelectorAll('.randomcolorbg');
+//to change fill color:
+let randomcolorfill = document.querySelectorAll('.randomcolorfill');
+//to change stroke color:
+let randomcolorstroke = document.querySelectorAll('.randomcolorstroke');
+
+//generate random number between min and max inclusive
+const random = (min,max) => Math.floor(Math.random() * (max - min + 1)) + min;
+//choose a random color
+const color = e => e[random(0,e.length - 1)];
+//choose a random palette
+const randomPalette = e => palettes[random(0,palettes.length - 1)];
+//verify if element contain an specific class
+const containClass = (el,c) => el.classList.contains(c);
+
+//set color
+const SetRandomColor = (e,pallete) =>{
+  if (pallete == undefined){
+    pallete = randomPalette();
+  }
+  //get element from target
+  let el = e.target;
+  //you can use a single palette:
+  if (containClass(el,'randomcolorfill')) el.style.fill = color(pallete);
+    //add a custom palette that you want:
+  if (containClass(el,'randomcolorstroke')) el.style.stroke = color(pallete);
+    //merge some palettes:
+  if (containClass(el,'randomcolor')) el.style.color = color(pallete);
+    //or choose a random palette
+  if (containClass(el,'randomcolorbg')) el.style.backgroundColor = color(pallete);
+};
+
+//add listener event for each element
+const treedboxRandomColor = (group,ev,pallete) =>{
+  group.forEach(el =>{
+    ev.forEach(evt => el.addEventListener(evt,e =>{
+      SetRandomColor(e,pallete);
+    },{passive:true}));
   });
-  }
-});
-
-  validLinks.map(url =>{
-    //set source file
-    fetch(url)
-  //get response as text
-      .then(response => response.text())
-.then(data =>{
-    //identify source
-    let getClass;
-  if (url.includes('colors.css')) {
-    getClass = 'randomcolor';
-  }else if (url.includes('colorsbg.css')) {
-    getClass = 'randomcolorbg';
-  }else if (url.includes('colorsfill.css')) {
-    getClass = 'randomcolorfill';
-  }else if (url.includes('colorsstroke.css')) {
-    getClass = 'randomcolorstroke';
-  }
-
-  //split each line break in an array
-  let colorSeparator = data.split('\n');
-  //create an empty array to receive material colors class
-  let material = [];
-  //get each key from colorSeparator
-  colorSeparator.map(el =>{
-    //if array element has . dot at first caracter
-    if (el.charAt(0) == '.' ) {
-    //remove dot from the first char
-    //remove { for the last char
-    //push element in the new array
-    //css must be ".classname{" without space before line break \n
-    material.push(el.slice(1, -2));
-  }
-});
-
-  //set material color name as class for each element
-  function randomColor(e) {
-    //get random number based on the length of array
-    let random = Math.floor(Math.random() * material.length);
-    //verify if element has .randomcolor class
-    if (e.classList.contains(getClass)) {
-      //for each material class
-      material.map(el =>{
-        //remove material class without remove other classes
-        e.classList.remove(el);
-    });
-      //set new random material class
-      e.classList.add(material[random]);
-    };
-  }
-
-  //get all elements with .randomcolor class
-  let randomcolor = document.querySelectorAll(`.${getClass}`);
-
-  //start setTimeout
-  function removeRandomColor(e) {
-    let el = e.target;
-    //for each material class
-    //remove material class without remove other classes
-    //after 5 seconds
-    setTimeout(() => material.map(ele => el.classList.remove(ele)), 5000);
-  }
-
-  //for each element call randomColor function
-  [].map.call(randomcolor, el =>{
-    //add mouseleave/not hover listener on each element
-    el.addEventListener('mouseleave', removeRandomColor);
-  //add focusout/not focus listener on each element
-  el.addEventListener('focusout', removeRandomColor);
-  el.addEventListener('blur', removeRandomColor);
-
-  //add mouseover/hover listener on each element
-  //send e.target as parameter to randomColor function
-  el.addEventListener('mouseover', e => randomColor(e.target));
-  //add click listener on each element
-  //send e.target as parameter to randomColor function
-  el.addEventListener('click', e => randomColor(e.target));
-  //add focusin/focus listener on each element
-  //send e.target as parameter to randomColor function
-  el.addEventListener('focusin', e => randomColor(e.target));
-});
-})
-.catch(error => console.log('ERROR:', error.message));
-});
-}
+};
