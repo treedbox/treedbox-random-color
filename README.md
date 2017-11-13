@@ -10,7 +10,7 @@ By: [Jonimar Marques Policarpo](https://www.linkedin.com/in/treedbox/ 'LinkEdin'
 
 
 ## What's News?
-The [Version 1.0.0](https://github.com/treedbox/treedbox-random-color/versions/1.0.0) extract the colors from .CSS files. This version (2.0.0) does not depend of any css file. It applyes directly from palettes of color like this:
+The [Version 1.0.0](versions/1.0.0) extract the colors from .CSS files. This version (2.0.0) does not depend of any css file. It applyes directly from palettes of color like this:
 ```
 const material = [
   '#009688','#00BCD4','#03A9F4','#2196F3','#3F51B5',
@@ -133,6 +133,4 @@ Version 2.0.0
 
 [https://github.com/treedbox/treedbox-random-color](https://github.com/treedbox/treedbox-random-color)
 
-Version 1.0.0
-
-[https://github.com/treedbox/treedbox-random-color/versions/1.0.0](https://github.com/treedbox/treedbox-random-color/versions/1.0.0)
+[Version 1.0.0](versions/1.0.0)
